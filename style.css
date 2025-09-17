@@ -1,50 +1,70 @@
 :root {
-  --primary: #0f3d3e;       /* Dark green */
-  --primary-light: #145858; /* Lighter green */
-  --bg: #000000;            /* Black background */
-  --text: #ffffff;          /* White text */
+  --primary: #0f3d3e;
+  --primary-light: #14b8a6;
+  --bg: #000000;
+  --text: #ffffff;
   --glass: rgba(255, 255, 255, 0.08);
 }
 
 /* Reset & Global */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--bg);
+  background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
+/* Sections */
 section {
-  padding: 100px 20px;
+  padding: 60px 20px;
   text-align: center;
+  position: relative;
 }
 
+/* First section (hero) cleanup */
+section:first-of-type {
+  padding-top: 0;
+}
+
+/* Inner section container */
 .section-inner {
   max-width: 1100px;
   margin: auto;
 }
 
-/* NAVIGATION */
+/* Headings */
+h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: var(--primary-light);
+}
+
+/* Paragraphs inside sections */
+section p {
+  max-width: 800px;
+  margin: 0 auto 20px auto;
+  line-height: 1.6;
+}
+
+/* Nav */
 nav {
   position: fixed;
   top: 0;
   width: 100%;
   background: rgba(15, 61, 62, 0.9);
-  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 20px;
-  z-index: 1000;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  z-index: 10000;
 }
 
 .logo {
@@ -63,7 +83,6 @@ nav a {
   text-decoration: none;
   color: var(--text);
   font-weight: 600;
-  transition: color 0.3s ease;
 }
 
 nav a:hover {
@@ -76,36 +95,67 @@ nav a:hover {
   border: none;
   color: var(--text);
   font-size: 1.5rem;
-  cursor: pointer;
 }
 
-/* HERO */
+/* Hero */
 #hero {
-  background: linear-gradient(135deg, var(--primary) 0%, #000000 100%);
-  min-height: 100vh;
+  position: relative;
+  width: 100%;
+  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  flex-direction: column;
-  animation: fadeIn 1s ease-in-out;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary) 0%, #000 100%);
+  overflow: hidden;
+}
+
+#hero .section-inner {
+  z-index: 2;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroFadeIn 1.2s ease forwards 0.3s;
+}
+
+@keyframes heroFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#hero canvas#particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 #hero h1 {
   font-size: 3rem;
+  transition: all 0.3s ease;
   margin-bottom: 10px;
 }
 
 #hero h1 span {
   color: var(--primary-light);
+  animation: float 3s ease-in-out infinite;
 }
 
-#hero p {
+#hero .typing {
   font-size: 1.2rem;
-  margin-bottom: 20px;
+  margin: 10px 0 20px;
+  border-right: 2px solid var(--primary-light);
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
 }
 
 .btn {
   display: inline-block;
+  margin: 5px;
   padding: 10px 20px;
   background: var(--primary);
   color: var(--text);
@@ -117,16 +167,16 @@ nav a:hover {
 
 .btn:hover {
   background: var(--primary-light);
-  transform: translateY(-3px);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 15px rgba(20, 88, 88, 0.6);
 }
 
-/* SKILLS */
+/* Skills */
 .skills-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  margin-top: 20px;
 }
 
 .skill {
@@ -134,24 +184,33 @@ nav a:hover {
   align-items: center;
   gap: 10px;
   background: var(--glass);
-  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   padding: 12px 16px;
   border-radius: 14px;
-  transition: transform 0.3s ease, background 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  perspective: 1000px;
 }
 
 .skill img {
   width: 26px;
   height: 26px;
+  transition: transform 0.6s ease;
+  animation: rotateSlow 6s linear infinite; /* gentle continuous rotation */
 }
 
 .skill:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) rotateY(15deg) rotateX(5deg);
   background: rgba(20, 88, 88, 0.5);
+  box-shadow: 0 4px 12px rgba(20, 88, 88, 0.6);
 }
 
-/* PROJECTS */
+@keyframes rotateSlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Projects */
 .projects-container {
   display: grid;
   gap: 20px;
@@ -160,22 +219,33 @@ nav a:hover {
 
 .project-card {
   background: var(--glass);
-  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   padding: 20px;
   border-radius: 14px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #14b8a6, #3b82f6, #9333ea, #14b8a6);
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(8px);
+  border-radius: inherit;
+  animation: borderGlow 6s linear infinite;
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 6px 18px rgba(20, 88, 88, 0.4);
+  transform: translateY(-8px) scale(1.02) rotate(-1deg);
 }
 
-/* EXPERIENCE */
+/* Experience */
 .experience-card {
   background: var(--glass);
-  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   padding: 22px;
   border-radius: 14px;
@@ -188,83 +258,101 @@ nav a:hover {
   transform: scale(1.02);
 }
 
-/* CONTACT */
-.contact-grid {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  margin-bottom: 20px;
-}
-
-.contact-card {
+/* Contact Icons */
+.contact-icons {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  padding: 12px;
-  border-radius: 10px;
-  text-decoration: none;
+  justify-content: center;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.contact-icons a {
+  font-size: 2rem;
   color: var(--text);
-  transition: background 0.3s ease;
-
-  /* Fix long text overflow */
-  word-break: break-word;
-  white-space: normal;
-  flex-wrap: wrap;
+  background: var(--glass);
+  padding: 15px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
-.contact-card span {
-  overflow-wrap: break-word;
-  flex: 1;
+.contact-icons a:hover {
+  color: var(--primary-light);
+  background: rgba(20, 88, 88, 0.6);
+  transform: translateY(-5px) rotate(15deg) scale(1.2);
+  animation: pulse 1s infinite;
 }
 
-.contact-card:hover {
-  background: rgba(20, 88, 88, 0.5);
+/* Contact Form */
+.contact-form {
+  max-width: 600px;
+  margin: auto;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 10px;
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  padding: 14px;
   border: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
   color: var(--text);
-  border-radius: 6px;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 10px rgba(20, 88, 88, 0.7);
+  transform: scale(1.02);
 }
 
 .contact-form button {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
   color: var(--text);
-  padding: 10px 20px;
+  padding: 14px;
   border: none;
-  border-radius: 6px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .contact-form button:hover {
-  background: var(--primary-light);
+  background: linear-gradient(135deg, var(--primary-light), #20c997);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(20, 88, 88, 0.5);
 }
 
-/* FOOTER */
+/* Footer */
 footer {
   background: var(--primary);
   padding: 15px;
   text-align: center;
-  font-size: 0.9rem;
 }
 
-/* ANIMATIONS */
+/* Animations */
 .fade-in,
 .slide-up {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .fade-in.animate,
@@ -273,25 +361,39 @@ footer {
   transform: translateY(0);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-@keyframes slideUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+@keyframes blink {
+  50% { border-color: transparent; }
 }
 
-/* RESPONSIVE */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(20, 88, 88, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(20, 88, 88, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(20, 88, 88, 0); }
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   nav ul {
     display: none;
     flex-direction: column;
     gap: 10px;
     background: rgba(15, 61, 62, 0.95);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
     position: absolute;
     top: 60px;
     right: 0;
@@ -306,19 +408,4 @@ footer {
   .menu-toggle {
     display: block;
   }
-}
-
-
-
-.fade-in,
-.slide-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in.animate,
-.slide-up.animate {
-  opacity: 1;
-  transform: translateY(0);
 }
