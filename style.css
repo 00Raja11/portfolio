@@ -153,7 +153,6 @@ nav a:hover {
   animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
 }
 
-/* Buttons */
 .btn {
   display: inline-block;
   margin: 5px;
@@ -197,7 +196,7 @@ nav a:hover {
   width: 26px;
   height: 26px;
   transition: transform 0.6s ease;
-  animation: rotateSlow 6s linear infinite;
+  animation: rotateSlow 6s linear infinite; /* gentle continuous rotation */
 }
 
 .skill:hover {
@@ -388,32 +387,25 @@ footer {
   100% { box-shadow: 0 0 0 0 rgba(20, 88, 88, 0); }
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  #hero h1 { font-size: 2.5rem; }
-  #hero .typing { font-size: 1rem; }
-  section { padding: 50px 15px; }
-  .projects-container { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-  .skills-container { gap: 12px; }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  #hero h1 { font-size: 2rem; }
-  #hero .typing { font-size: 0.95rem; }
-  section { padding: 40px 15px; }
-  .projects-container { grid-template-columns: 1fr; }
-  .skills-container { flex-wrap: wrap; justify-content: center; }
-  nav ul { width: 100%; top: 60px; right: 0; padding: 20px; }
-  .contact-form { padding: 20px; }
-  .btn { padding: 8px 16px; font-size: 0.95rem; }
-  .menu-toggle { display: block; }
-}
+  nav ul {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(15, 61, 62, 0.95);
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 200px;
+    padding: 15px;
+  }
 
-@media (max-width: 480px) {
-  #hero h1 { font-size: 1.6rem; }
-  #hero .typing { font-size: 0.85rem; }
-  section { padding: 30px 10px; }
-  nav ul { gap: 8px; }
-  .btn { padding: 6px 14px; font-size: 0.85rem; }
-  .contact-form { padding: 15px; }
+  nav ul.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
 }
