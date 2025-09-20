@@ -365,7 +365,9 @@ footer {
 @keyframes borderGlow { 0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;} }
 @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(20,88,88,0.7);}70%{box-shadow:0 0 0 15px rgba(20,88,88,0);}100%{box-shadow:0 0 0 0 rgba(20,88,88,0);} }
 
-/* Responsive */
+/* Responsive Styles */
+
+/* Large tablets / small desktops */
 @media (max-width: 1024px) {
   #hero h1 {
     font-size: 2.5rem;
@@ -375,6 +377,7 @@ footer {
   }
   .skills-container {
     gap: 12px;
+    flex-wrap: wrap; /* Ensure items wrap if needed */
   }
   .project-card {
     padding: 16px;
@@ -387,6 +390,7 @@ footer {
   }
 }
 
+/* Tablets / medium screens */
 @media (max-width: 768px) {
   nav ul {
     display: none;
@@ -400,6 +404,7 @@ footer {
     padding: 15px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    z-index: 999; /* Ensure it stays on top */
   }
 
   nav ul.show {
@@ -408,32 +413,42 @@ footer {
 
   .menu-toggle {
     display: block;
+    cursor: pointer;
   }
 
   #hero h1 {
     font-size: 2rem;
+    text-align: center;
   }
   #hero .typing {
     font-size: 0.95rem;
+    text-align: center;
   }
+
   .skills-container {
     flex-direction: column;
     gap: 10px;
   }
+
   .projects-container {
+    display: grid;
     grid-template-columns: 1fr;
     gap: 15px;
   }
+
   .experience-card {
     max-width: 100%;
     padding: 16px;
   }
+
   .contact-form {
     max-width: 90%;
     padding: 18px;
+    margin: 0 auto; /* Center form */
   }
 }
 
+/* Mobile / small screens */
 @media (max-width: 480px) {
   #hero h1 {
     font-size: 1.5rem;
@@ -445,11 +460,40 @@ footer {
     padding: 8px 14px;
     font-size: 0.9rem;
   }
+
   .contact-icons {
-    gap: 15px;
+    gap: 12px;
+    justify-content: center;
   }
+
   .contact-icons a {
     font-size: 1.5rem;
     padding: 12px;
+  }
+
+  .skills-container, .projects-container, .experience-card {
+    width: 100%;
+  }
+
+  .project-card {
+    padding: 12px;
+  }
+}
+
+/* Optional: Extra small devices */
+@media (max-width: 360px) {
+  #hero h1 {
+    font-size: 1.3rem;
+  }
+  #hero .typing {
+    font-size: 0.8rem;
+  }
+  .btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+  .contact-icons a {
+    font-size: 1.3rem;
+    padding: 10px;
   }
 }
